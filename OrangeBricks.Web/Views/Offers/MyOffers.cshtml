@@ -1,0 +1,48 @@
+﻿@model OrangeBricks.Web.Controllers.Offers.ViewModels.MyOffersViewModel
+
+@using OrangeBricks.Web.Models
+
+@{
+    ViewBag.Title = "Your Offers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>Here you can see the offers that you have made.</p>
+
+@if (Model.HasMadeOffers)
+{
+    <p>You have made @Model.OffersStates.Count offers ...</p>
+
+    foreach (var offer in Model.OffersStates)
+    {
+        <hr />
+        <div>
+            <p><strong>Property Type: </strong> @offer.PropertyType</p>
+            <p><strong>Property Street: </strong> @offer.PropertyStreetName</p>
+            <p><strong>Offer Amount: </strong> £@offer.OfferAmount</p>
+            <p>
+                <strong>Offer Status: </strong>
+                @switch (offer.OfferStatus)
+                {
+                    case OfferStatus.Accepted:
+                        <strong class="text-success">Accepted</strong>
+                        break;
+                    case OfferStatus.Rejected:
+                        <strong class="text-danger">Rejected</strong>
+                        break;
+                    default:
+                        @:Pending
+                        break;
+                }
+            </p>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        You have not made any offers yet!
+    </div>
+}
