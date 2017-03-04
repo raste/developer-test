@@ -23,7 +23,10 @@ namespace OrangeBricks.Web.Controllers.Property
         public ActionResult Index(PropertiesQuery query)
         {
             var builder = new PropertiesViewModelBuilder(_context);
-            var viewModel = builder.Build(query);
+
+            var isSeller = User.IsInRole("Seller");
+
+            var viewModel = builder.Build(query, isSeller);
 
             return View(viewModel);
         }
@@ -88,6 +91,19 @@ namespace OrangeBricks.Web.Controllers.Property
             command.BuyerUserId = User.Identity.GetUserId();
 
             var handler = new MakeOfferCommandHandler(_context);
+
+            handler.Handle(command);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [OrangeBricksAuthorize(Roles = "Buyer")]
+        public ActionResult BookAppointment(BookAppointmentCommand command)
+        {
+            command.BuyerUserId = User.Identity.GetUserId();
+
+            var handler = new BookAppointmentCommandHandler(_context);
 
             handler.Handle(command);
 

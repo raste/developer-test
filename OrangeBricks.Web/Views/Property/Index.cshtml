@@ -5,6 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    <style>
+        .form-appointment {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+            .form-appointment .form-group {
+                width: 240px;
+                display: inline-block;
+                vertical-align: top;
+                margin-bottom: 10px;
+            }
+
+            .or {
+                vertical-align: middle;
+            }
+    </style>
+}
+
 <h2>Properties For Sale</h2>
 
 @using (Html.BeginForm("Index", "Property", FormMethod.Get, new { @class = "form-horizontal" }))
@@ -14,11 +35,10 @@
         <div class="col-sm-8">
             @Html.TextBoxFor(m => m.Search, new { @class = "form-control", @placeholder = "Search by street or description..." })
         </div>
-    <div class="col-sm-2">
-        <button type="submit" class="btn btn-default">Search</button>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-default">Search</button>
+        </div>
     </div>
-    </div>
-    
 }
 
 <p>@Model.Properties.Count properties matching your criteria...</p>
@@ -30,7 +50,45 @@
     <p>@property.NumberOfBedrooms bedroom @property.PropertyType</p>
     <p>@property.Description</p>
 
-    <a href="@Url.Action("MakeOffer", "Property", new {id = property.Id})" class="btn btn-primary">
-        Make Offer
-    </a>
+    if (Model.IsSeller == false)
+    {
+        using (Html.BeginForm("BookAppointment", "Property", FormMethod.Post, new { @class = "form-inline form-appointment", role = "form", data_book_form = "" }))
+        {
+            @Html.Hidden("PropertyId", property.Id)
+
+            <div class="form-group">
+                <div class='input-group date' data-dateTimePicker>
+                    @Html.TextBox("Date", null, new { @class = "form-control", placeholder = "mm/dd/yyyy HH:MM AM/PM", required = "true" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Book Appointment" />
+        }
+
+        <span class="or"> or </span>
+
+        <a href="@Url.Action("MakeOffer", "Property", new {id = property.Id})" class="btn btn-primary">
+            Make Offer
+        </a>
+    }
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('[data-dateTimePicker]').datetimepicker();
+
+            $('form[data-book-form]').each(function () {
+                $(this).validate({
+                    errorPlacement: function (error, element) {
+                        return true;
+                    }
+                });
+            });
+        });
+    </script>
 }

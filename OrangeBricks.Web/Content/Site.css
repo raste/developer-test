@@ -19,6 +19,11 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
+textarea
+{
     max-width: 280px;
+}
+
+.form-control.error{
+    border:solid 2px red;
 }

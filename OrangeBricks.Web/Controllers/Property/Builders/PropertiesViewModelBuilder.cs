@@ -15,7 +15,7 @@ namespace OrangeBricks.Web.Controllers.Property.Builders
             _context = context;
         }
 
-        public PropertiesViewModel Build(PropertiesQuery query)
+        public PropertiesViewModel Build(PropertiesQuery query, bool isUserSeler)
         {
             var properties = _context.Properties
                 .Where(p => p.IsListedForSale);
@@ -28,6 +28,7 @@ namespace OrangeBricks.Web.Controllers.Property.Builders
 
             return new PropertiesViewModel
             {
+                IsSeller = isUserSeler,
                 Properties = properties
                     .ToList()
                     .Select(MapViewModel)

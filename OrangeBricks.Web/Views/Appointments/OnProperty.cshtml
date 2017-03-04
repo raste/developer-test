@@ -1,0 +1,74 @@
+﻿@model OrangeBricks.Web.Controllers.Appointments.ViewModels.AppointmentsOnPropertyViewModel
+
+@{
+    ViewBag.Title = "Appointments on Your Property";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .appointment-status {
+            margin-bottom: 10px;
+        }
+
+        .form-status-action {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>Here you can see the appointments that have been requested on your property. All dates are in UTC time.</p>
+
+<p><strong>Property type:</strong> @Model.PropertyType</p>
+<p><strong>Number of bedrooms:</strong> @Model.NumberOfBedrooms</p>
+<p><strong>Street name:</strong> @Model.StreetName</p>
+
+@if (Model.HasAppointments)
+{
+    <p>There are @Model.Appointments.Count appointments on this property...</p>
+
+    foreach (var appointment in Model.Appointments)
+    {
+        <hr />
+        <div>
+            <p><strong>Date: </strong> @appointment.Date</p>
+            <div class="appointment-status">
+                <strong>Status: </strong>
+                @switch (appointment.Status)
+                {
+                    case OrangeBricks.Web.Models.AppointmentStatus.Accepted:
+                        <strong class="text-success">Accepted</strong>
+                        break;
+                    case OrangeBricks.Web.Models.AppointmentStatus.Declined:
+                        <strong class="text-danger">Declined</strong>
+                        break;
+                    default:
+                        using (Html.BeginForm("Accept", "Appointments", FormMethod.Post, new { @class = "form-status-action" }))
+                        {
+                            @Html.Hidden("PropertyId", Model.PropertyId)
+                            @Html.Hidden("AppointmentId", appointment.AppointmentId)
+                            <input type="submit" class="btn btn-primary" value="Accept Appointment" />
+                        }
+                        using (Html.BeginForm("Decline", "Appointments", FormMethod.Post, new { @class = "form-status-action" }))
+                        {
+                            @Html.Hidden("PropertyId", Model.PropertyId)
+                            @Html.Hidden("AppointmentId", appointment.AppointmentId)
+                            <input type="submit" class="btn btn-default" value="Decline Appointment" />
+                        }
+                        break;
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        This property has no appointments yet!
+    </div>
+}

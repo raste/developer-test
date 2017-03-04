@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Orange Bricks</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -33,6 +34,7 @@
                         if (User.IsInRole("Buyer"))
                         {
                             <li>@Html.ActionLink("My Offers", "MyOffers", "Offers")</li>
+                            <li>@Html.ActionLink("My Appointments", "MyAppointments", "Appointments")</li>
                         }
                     }
                 </ul>
@@ -49,6 +51,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
