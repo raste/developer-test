@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 
-using Microsoft.AspNet.Identity;
-
 using OrangeBricks.Web.Attributes;
 using OrangeBricks.Web.Controllers.Offers.Builders;
 using OrangeBricks.Web.Controllers.Offers.Commands;
@@ -10,19 +8,16 @@ using OrangeBricks.Web.Models;
 namespace OrangeBricks.Web.Controllers.Offers
 {
     [Authorize]
-    public class OffersController : Controller
+    public class OffersController : BaseController
     {
-        private readonly IOrangeBricksContext _context;
-
-        public OffersController(IOrangeBricksContext context)
+        public OffersController(IOrangeBricksContext context) : base(context)
         {
-            _context = context;
         }
 
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult OnProperty(int id)
         {
-            var builder = new OffersOnPropertyViewModelBuilder(_context);
+            var builder = new OffersOnPropertyViewModelBuilder(Context);
             var viewModel = builder.Build(id);
 
             return View(viewModel);
@@ -32,7 +27,7 @@ namespace OrangeBricks.Web.Controllers.Offers
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult Accept(AcceptOfferCommand command)
         {
-            var handler = new AcceptOfferCommandHandler(_context);
+            var handler = new AcceptOfferCommandHandler(Context);
 
             handler.Handle(command);
 
@@ -43,7 +38,7 @@ namespace OrangeBricks.Web.Controllers.Offers
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult Reject(RejectOfferCommand command)
         {
-            var handler = new RejectOfferCommandHandler(_context);
+            var handler = new RejectOfferCommandHandler(Context);
 
             handler.Handle(command);
 
@@ -53,11 +48,9 @@ namespace OrangeBricks.Web.Controllers.Offers
         [OrangeBricksAuthorize(Roles = "Buyer")]
         public ActionResult MyOffers()
         {
-            var builder = new MyOffersViewModelBuilder(_context);
+            var builder = new MyOffersViewModelBuilder(Context);
 
-            var userId = User.Identity.GetUserId();
-
-            var viewModel = builder.Build(userId);
+            var viewModel = builder.Build(UserId);
 
             return View(viewModel);
         }

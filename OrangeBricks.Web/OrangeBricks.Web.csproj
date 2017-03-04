@@ -178,6 +178,7 @@
     <Compile Include="Controllers\Appointments\Commands\UpdateAppointmentCommand.cs" />
     <Compile Include="Controllers\Appointments\Commands\UpdateAppointmentCommandHandler.cs" />
     <Compile Include="Controllers\Appointments\ViewModels\MyAppointmentsViewModel.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Property\Commands\BookAppointmentCommand.cs" />
     <Compile Include="Controllers\Property\Commands\BookAppointmentCommandHandler.cs" />
     <Compile Include="Controllers\Appointments\ViewModels\AppointmentsOnPropertyViewModel.cs" />
@@ -336,6 +337,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

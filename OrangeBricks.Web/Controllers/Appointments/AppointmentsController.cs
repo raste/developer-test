@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 
-using Microsoft.AspNet.Identity;
-
 using OrangeBricks.Web.Attributes;
 using OrangeBricks.Web.Controllers.Appointments.Builders;
 using OrangeBricks.Web.Models;
@@ -10,23 +8,18 @@ using OrangeBricks.Web.Controllers.Appointments.Commands;
 namespace OrangeBricks.Web.Controllers.Appointments
 {
     [Authorize]
-    public class AppointmentsController : Controller
+    public class AppointmentsController : BaseController
     {
-        private readonly IOrangeBricksContext _context;
-
-        public AppointmentsController(IOrangeBricksContext context)
+        public AppointmentsController(IOrangeBricksContext context) : base(context)
         {
-            _context = context;
         }
 
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult OnProperty(int id)
         {
-            var builder = new AppointmentsOnPropertyViewModelBuilder(_context);
+            var builder = new AppointmentsOnPropertyViewModelBuilder(Context);
 
-            var userId = User.Identity.GetUserId();
-
-            var viewModel = builder.Build(id, userId);
+            var viewModel = builder.Build(id, UserId);
 
             return View(viewModel);
         }
@@ -35,7 +28,7 @@ namespace OrangeBricks.Web.Controllers.Appointments
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult Accept(UpdateAppointmentCommand command)
         {
-            command.SellerUserId = User.Identity.GetUserId();
+            command.SellerUserId = UserId;
             command.NewStatus = AppointmentStatus.Accepted;
 
             return UpdateAppointmentStatus(command);
@@ -45,7 +38,7 @@ namespace OrangeBricks.Web.Controllers.Appointments
         [OrangeBricksAuthorize(Roles = "Seller")]
         public ActionResult Decline(UpdateAppointmentCommand command)
         {
-            command.SellerUserId = User.Identity.GetUserId();
+            command.SellerUserId = UserId;
             command.NewStatus = AppointmentStatus.Declined;
 
             return UpdateAppointmentStatus(command);
@@ -53,7 +46,7 @@ namespace OrangeBricks.Web.Controllers.Appointments
 
         private ActionResult UpdateAppointmentStatus(UpdateAppointmentCommand command)
         {
-            var handler = new UpdateAppointmentCommandHandler(_context);
+            var handler = new UpdateAppointmentCommandHandler(Context);
 
             handler.Handle(command);
 
@@ -63,11 +56,9 @@ namespace OrangeBricks.Web.Controllers.Appointments
         [OrangeBricksAuthorize(Roles = "Buyer")]
         public ActionResult MyAppointments()
         {
-            var builder = new MyAppointmentsViewModelBuilder(_context);
+            var builder = new MyAppointmentsViewModelBuilder(Context);
 
-            var userId = User.Identity.GetUserId();
-
-            var viewModel = builder.Build(userId);
+            var viewModel = builder.Build(UserId);
 
             return View(viewModel);
         }
