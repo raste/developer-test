@@ -1,4 +1,4 @@
-**Total time spent on the task: around 17 hours**
+**Total time spent on the task: around 21 hours**
 
 The task is very generally defined, as such it can be accomplished in 5 hours or 2 weeks. As my time to work on it was limited I'll mention the places which could be improved.
 
@@ -21,7 +21,6 @@ Improvements on that approach:
 - Add paging on the offers page
 - Add filters for showing only accepted/rejected/pending orders
 - Update properties page to show when offer has been made on property so that the buyer doesn't get confused (by adding duplicate)
-- Add indication on home page or menu when offer was accepted
 - Show some indication if someone has made better offer, that would promote bidding competition between buyers
 
 # Objective 2 - Buyer can book appointment
@@ -45,14 +44,10 @@ Added appointments page per property similar to offers for Sellers and added app
 Improvements on that approach:
 - Add message specifying that appointment was created (for buyers). Ideally make the whole functionality with Ajax so there is no page reload.
 - Show indication that buyer has already made appointment for property (on properties page)
-- Add indication on home page/menu for Sellers/Buyers when appointments are created/updated.
 - Add paging and filters for Buyers appointments page.
 
 # Other improvements which could be done
 
-- Tweak the whole layout with other colors and make the home page more representative, so that more is shown as experience when it comes to Html and CSS.
-- Update the layout of properties/appointments/offer so that it is more grid like (multiple sets of data on same row).
-- Move the links/buttons in properties page to most right to save some space.
 - Add validation on search field in properties page.
-- Add test cases to appointment functionality also.
+- Add test cases to appointment and Buyer/Seller home pages functionality.
 
