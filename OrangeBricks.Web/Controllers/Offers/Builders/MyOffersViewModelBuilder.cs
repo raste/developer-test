@@ -16,33 +16,29 @@ namespace OrangeBricks.Web.Controllers.Offers.Builders
 
         public MyOffersViewModel Build(string userID)
         {
-            var userPropertyOffers = _context.Properties
-                                             .Where(p => p.Offers.Any(o => o.BuyerUserId == userID))
-                                             .Select(p => new
-                                             {
-                                                 p.StreetName,
-                                                 p.PropertyType,
-                                                 Offers = p.Offers.Where(o => o.BuyerUserId == userID)
-                                             })
-                                             .ToList();
-
-            var offersStates = userPropertyOffers.SelectMany(p => p.Offers.Select(o => new
+            var offersStates = _context.Properties
+                                       .Where(p => p.Offers.Any(o => o.BuyerUserId == userID))
+                                       .Select(p => new
+                                       {
+                                           p.StreetName,
+                                           p.PropertyType,
+                                           Offers = p.Offers.Where(o => o.BuyerUserId == userID)
+                                       })
+                                       .ToList()
+                                       .SelectMany(p => p.Offers.Select(o => new
                                                  {
-                                                     p.PropertyType,
-                                                     p.StreetName,
-                                                     o.Amount,
-                                                     o.Status,
-                                                     o.CreatedAt
-                                                 }))
-                                                 .OrderByDescending(o => o.CreatedAt)
-                                                 .Select(o => new PropertyOfferState()
-                                                 {
-                                                     OfferAmount = o.Amount,
-                                                     PropertyType = o.PropertyType,
-                                                     OfferStatus = o.Status,
-                                                     PropertyStreetName = o.StreetName
-                                                 })
-                                                 .ToList();
+                                                     o.CreatedAt,
+                                                     OfferState = new PropertyOfferState()
+                                                     {
+                                                         OfferAmount = o.Amount,
+                                                         PropertyType = p.PropertyType,
+                                                         OfferStatus = o.Status,
+                                                         PropertyStreetName = p.StreetName
+                                                     }
+                                                  }))
+                                        .OrderByDescending(o => o.CreatedAt)
+                                        .Select(o => o.OfferState)
+                                        .ToList();
 
             return new MyOffersViewModel
             {
