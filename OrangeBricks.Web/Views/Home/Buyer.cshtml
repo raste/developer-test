@@ -1,0 +1,85 @@
+﻿@model OrangeBricks.Web.Controllers.Home.ViewModels.BuyerHomeViewModel
+@{
+    ViewBag.Title = "Buyer Dashboard";
+}
+
+<h2>
+    Your Dashboard
+    <small>you have</small>
+</h2>
+<br />
+
+<div class="row">
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Offers/MyOffers">
+            <span class="text-lg">
+                @Model.OffersCount
+            </span>
+            offers
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Offers/MyOffers">
+            <span class="text-lg">
+                @Model.AcceptedOffersCount
+            </span>
+            accepted offers
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Offers/MyOffers">
+            <span class="text-lg">
+                @Model.RejectedOffersCount
+            </span>
+            <span class="text-sm">
+                rejected offers
+            </span>
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Appointments/MyAppointments">
+            <span class="text-lg">
+                @Model.AppointmentsCount
+            </span>
+            <span class="text-sm">
+                appointments
+            </span>
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Appointments/MyAppointments">
+            <span class="text-lg">
+                @Model.AcceptedAppointments
+            </span>
+            <span class="text-sm">
+                accepted appointments
+            </span>
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Appointments/MyAppointments">
+            <span class="text-lg">
+                @Model.DeclinedAppointments
+            </span>
+            <span class="text-sm">
+                declined appointments
+            </span>
+        </a>
+    </div>
+</div>
+
+<h3>Buy</h3>
+<p>
+    View amazing properties for sale and send your offer 
+    directly to the seller. Saving time and money.
+</p>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "Property")">View properties &raquo;</a>
+</p>
+
+
+
+
+
+
+

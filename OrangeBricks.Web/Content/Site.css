@@ -1,6 +1,14 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 80px;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ec4809;
+    border-top: 1px solid #b55b0e;
+    border-radius:5px;
+    color: white;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -19,11 +27,86 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea
-{
+textarea {
     max-width: 280px;
 }
 
-.form-control.error{
+.navbar-inverse {
+    background-color: #ec4809;
+    border-bottom: 1px solid #b55b0e;
+}
+
+    .navbar-inverse .navbar-brand, 
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+.jumbotron {
+    background-color: #ecaa09;
+    color: white;
+}
+
+
+
+.tile {
+    display: inline-block;
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px 10px 10px 10px;
+    font-size: 15px;
+    text-align: center;
+    background-color: #ecaa09;
+    color: white;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+    .tile:hover,
+    .tile:visited {
+        text-decoration: none;
+    }
+
+.text-lg {
+    font-size: 30px;
+}
+
+.text-sm {
+    font-size: 15px;
+}
+
+@media (min-width: 768px) {
+    .tile {
+        max-width: 280px;
+        padding: 20px 15px 15px 15px;
+        min-height: 100px;
+        font-size: 25px;
+    }
+
+    .text-lg {
+        font-size: 40px;
+    }
+
+    .text-sm {
+        font-size: 15px;
+    }
+}
+
+.btn-red {
+    background-color: #bc3300;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e64a00), to(#bc3300));
+    background-image: -webkit-linear-gradient(top, #e64a00, #bc3300);
+    color: white;
+}
+
+    .btn-red:hover {
+        color: white;
+        background-image: -webkit-linear-gradient(top, #ffaa00, #e29700);
+    }
+
+.form-control.error {
     border: solid 2px red;
+}
+
+.mtop30 {
+    margin-top:30px;
 }

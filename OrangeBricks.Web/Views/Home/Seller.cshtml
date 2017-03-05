@@ -1,0 +1,53 @@
+﻿@model OrangeBricks.Web.Controllers.Home.ViewModels.SellerHomeViewModel
+
+@{
+    ViewBag.Title = "Seller Dashboard";
+}
+
+<h2>
+    Your Dashboard
+    <small>you have</small>
+</h2>
+<br />
+
+<div class="row">
+    <div class="col-sm-4">
+        <a class="tile btn-red" href="/Property/MyProperties">
+            <span class="text-lg">
+                @Model.PropertiesCount
+            </span>
+            properties
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <div class="tile">
+            <span class="text-lg">
+                @Model.PendingOffers
+            </span>
+            offers
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="tile">
+            <span class="text-lg">
+                @Model.PendingAppointmentRequests
+            </span>
+            <span class="text-sm">
+                appointment requests
+            </span>
+        </div>
+    </div>
+</div>
+
+<h3>Sell</h3>
+<p>
+    Sell your house in a few easy clicks. Add your listing and then simply review offers from buyers and accept or reject them.
+</p>
+<p><a class="btn btn-default" href="@Url.Action("Create", "Property")">List your property &raquo;</a></p>
+
+
+
+
+
+
+

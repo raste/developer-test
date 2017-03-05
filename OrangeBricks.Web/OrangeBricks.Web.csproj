@@ -179,10 +179,14 @@
     <Compile Include="Controllers\Appointments\Commands\UpdateAppointmentCommandHandler.cs" />
     <Compile Include="Controllers\Appointments\ViewModels\MyAppointmentsViewModel.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Home\Builders\BuyerHomeViewModelBuilder.cs" />
+    <Compile Include="Controllers\Home\Builders\SellerHomeViewModelBuilder.cs" />
+    <Compile Include="Controllers\Home\ViewModels\BuyerHomeViewModel.cs" />
+    <Compile Include="Controllers\Home\ViewModels\SellerHomeViewModel.cs" />
     <Compile Include="Controllers\Property\Commands\BookAppointmentCommand.cs" />
     <Compile Include="Controllers\Property\Commands\BookAppointmentCommandHandler.cs" />
     <Compile Include="Controllers\Appointments\ViewModels\AppointmentsOnPropertyViewModel.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Offers\Builders\MyOffersViewModelBuilder.cs" />
     <Compile Include="Controllers\Offers\Builders\OffersOnPropertyViewModelBuilder.cs" />
     <Compile Include="Controllers\Offers\Commands\AcceptOfferCommand.cs" />
@@ -329,6 +333,8 @@
     <Content Include="Views\Offers\MyOffers.cshtml" />
     <Content Include="Views\Appointments\OnProperty.cshtml" />
     <Content Include="Views\Appointments\MyAppointments.cshtml" />
+    <Content Include="Views\Home\Buyer.cshtml" />
+    <Content Include="Views\Home\Seller.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
