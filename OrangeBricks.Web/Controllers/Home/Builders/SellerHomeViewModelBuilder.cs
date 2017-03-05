@@ -2,6 +2,7 @@
 
 using OrangeBricks.Web.Controllers.Home.ViewModels;
 using OrangeBricks.Web.Models;
+using System.Data.Entity;
 
 namespace OrangeBricks.Web.Controllers.Home.Builders
 {
@@ -18,11 +19,17 @@ namespace OrangeBricks.Web.Controllers.Home.Builders
         {
             var propertiesCount = _context.Properties.Count(p => p.SellerUserId == userId);
 
-            var pendingOffersCount = _context.Properties.Where(p => p.SellerUserId == userId)
-                                                        .Sum(p => p.Offers.Count(o => o.Status == OfferStatus.Pending));
+            var properties = _context.Properties.Where(p => p.SellerUserId == userId)
+                                                .Include(p => p.Offers)
+                                                .Include(p => p.Appointments)
+                                                .ToList();
 
-            var pendingAppointmentsCount = _context.Properties.Where(p => p.SellerUserId == userId)
-                                                              .Sum(p => p.Appointments.Count(a => a.Status == AppointmentStatus.Pending));
+            int pendingOffersCount = 0, pendingAppointmentsCount = 0;
+            if (properties != null)
+            {
+                pendingOffersCount = properties.Sum(p => p.Offers.Count(o => o.Status == OfferStatus.Pending));
+                pendingAppointmentsCount = properties.Sum(p => p.Appointments.Count(a => a.Status == AppointmentStatus.Pending));
+            }
 
             return new SellerHomeViewModel()
             {
