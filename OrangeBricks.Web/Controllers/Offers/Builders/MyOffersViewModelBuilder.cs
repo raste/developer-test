@@ -14,6 +14,11 @@ namespace OrangeBricks.Web.Controllers.Offers.Builders
             _context = context;
         }
 
+        /// <summary>
+        /// Returns model that contains all appointment requests made by
+        /// the user. The appointments are sorted by descending based on
+        /// their creation date.
+        /// </summary>
         public MyOffersViewModel Build(string userID)
         {
             var offersStates = _context.Properties

@@ -14,6 +14,9 @@ namespace OrangeBricks.Web.Controllers.Property.Commands
             _context = context;
         }
 
+        /// <summary>
+        /// Creates appointment for the specified date and property.
+        /// </summary>
         public void Handle(BookAppointmentCommand command)
         {
             var property = _context.Properties.SingleOrDefault(p => p.Id == command.PropertyId);

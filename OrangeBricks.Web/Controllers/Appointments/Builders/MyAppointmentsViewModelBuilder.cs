@@ -14,6 +14,11 @@ namespace OrangeBricks.Web.Controllers.Appointments.Builders
             _context = context;
         }
 
+        /// <summary>
+        /// Creates model which contains the appointments which potential buyer
+        /// requested for property. The appointments are sorted by descending
+        /// based on their creation date.
+        /// </summary>
         public MyAppointmentsViewModel Build(string buyerUserId)
         {
             var appointmentStates = _context.Properties

@@ -13,7 +13,18 @@ namespace OrangeBricks.Web.Controllers
     {
         protected readonly IOrangeBricksContext Context;
 
-        protected string UserId { get { return User.Identity.GetUserId(); } }
+        protected string UserId
+        {
+            get
+            {
+                if(User.Identity.IsAuthenticated == false)
+                {
+                    return null;
+                }
+
+                return User.Identity.GetUserId();
+            }
+        }
 
         public BaseController(IOrangeBricksContext context)
         {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using OrangeBricks.Web.Models;
 using System.Data.Entity;
@@ -15,6 +14,9 @@ namespace OrangeBricks.Web.Controllers.Appointments.Commands
             _context = context;
         }
 
+        /// <summary>
+        /// Updates the status of appointment.
+        /// </summary>
         public void Handle(UpdateAppointmentCommand command)
         {
             var property = _context.Properties.Where(p => p.Id == command.PropertyId
