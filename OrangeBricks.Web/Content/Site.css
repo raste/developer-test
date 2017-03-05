@@ -1,5 +1,6 @@
 ﻿body {
     padding-top: 80px;
+    padding-bottom: 20px;
 }
 
 footer {
@@ -7,7 +8,7 @@ footer {
     padding: 15px;
     background-color: #ec4809;
     border-top: 1px solid #b55b0e;
-    border-radius:5px;
+    border-radius: 5px;
     color: white;
 }
 
@@ -36,17 +37,20 @@ textarea {
     border-bottom: 1px solid #b55b0e;
 }
 
-    .navbar-inverse .navbar-brand, 
+    .navbar-inverse .navbar-brand,
     .navbar-inverse .navbar-nav > li > a {
         color: #fff;
     }
 
 .jumbotron {
-    background-color: #ecaa09;
     color: white;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ecaa09+0,ed4b00+100 */
+    background: rgb(236,170,9); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(236,170,9,1) 0%, rgba(237,75,0,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(236,170,9,1) 0%,rgba(237,75,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(236,170,9,1) 0%,rgba(237,75,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ecaa09', endColorstr='#ed4b00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-
-
 
 .tile {
     display: inline-block;
@@ -98,15 +102,34 @@ textarea {
     color: white;
 }
 
-    .btn-red:hover {
+    .btn-red:hover,
+    .btn-red:active,
+    .btn-red:focus {
         color: white;
         background-image: -webkit-linear-gradient(top, #ffaa00, #e29700);
+        border: 1px solid #bc3300;
     }
 
 .form-control.error {
     border: solid 2px red;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.mtop0 {
+    margin-top: 0px;
+}
+
 .mtop30 {
-    margin-top:30px;
+    margin-top: 30px;
+}
+
+.mright5 {
+    margin-right: 5px;
+}
+
+.mbot10 {
+    margin-bottom: 10px;
 }

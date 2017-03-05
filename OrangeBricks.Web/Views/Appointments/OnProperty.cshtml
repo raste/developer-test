@@ -1,5 +1,7 @@
 ﻿@model OrangeBricks.Web.Controllers.Appointments.ViewModels.AppointmentsOnPropertyViewModel
 
+@using OrangeBricks.Web.Models
+
 @{
     ViewBag.Title = "Appointments on Your Property";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,46 +23,81 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<br />
 
 <p>Here you can see the appointments that have been requested on your property. All dates are in UTC time.</p>
+<br />
 
-<p><strong>Property type:</strong> @Model.PropertyType</p>
-<p><strong>Number of bedrooms:</strong> @Model.NumberOfBedrooms</p>
-<p><strong>Street name:</strong> @Model.StreetName</p>
+<div class="row">
+    <div class="col-sm-6">
+        <p>
+            <strong>Property type:</strong>
+            @Model.PropertyType
+            ,@Model.NumberOfBedrooms bedrooms
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p>
+            <strong>Street name:</strong>
+            @Model.StreetName
+        </p>
+    </div>
+</div>
 
 @if (Model.HasAppointments)
 {
     <p>There are @Model.Appointments.Count appointments on this property...</p>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-4">
+            <strong>Date</strong>
+        </div>
+        <div class="col-sm-4">
+            <strong>Status</strong>
+        </div>
+        <div class="col-sm-4">
+            <strong>Actions</strong>
+        </div>
+    </div>
 
     foreach (var appointment in Model.Appointments)
     {
         <hr />
-        <div>
-            <p><strong>Date: </strong> @appointment.Date</p>
-            <div class="appointment-status">
-                <strong>Status: </strong>
+
+        <div class="row">
+            <div class="col-sm-4">
+                @appointment.Date
+            </div>
+            <div class="col-sm-4">
                 @switch (appointment.Status)
                 {
-                    case OrangeBricks.Web.Models.AppointmentStatus.Accepted:
+                    case AppointmentStatus.Accepted:
                         <strong class="text-success">Accepted</strong>
                         break;
-                    case OrangeBricks.Web.Models.AppointmentStatus.Declined:
+                    case AppointmentStatus.Declined:
                         <strong class="text-danger">Declined</strong>
                         break;
                     default:
-                        using (Html.BeginForm("Accept", "Appointments", FormMethod.Post, new { @class = "form-status-action" }))
-                        {
-                            @Html.Hidden("PropertyId", Model.PropertyId)
-                            @Html.Hidden("AppointmentId", appointment.AppointmentId)
-                            <input type="submit" class="btn btn-primary" value="Accept Appointment" />
-                        }
-                        using (Html.BeginForm("Decline", "Appointments", FormMethod.Post, new { @class = "form-status-action" }))
-                        {
-                            @Html.Hidden("PropertyId", Model.PropertyId)
-                            @Html.Hidden("AppointmentId", appointment.AppointmentId)
-                            <input type="submit" class="btn btn-default" value="Decline Appointment" />
-                        }
+                        @:Pending
                         break;
+                }
+            </div>
+            <div class="col-sm-4">
+                @if (appointment.Status == AppointmentStatus.Pending)
+                {
+                    using (Html.BeginForm("Accept", "Appointments", FormMethod.Post, new { @class = "form-status-action inline-block" }))
+                    {
+                        @Html.Hidden("PropertyId", Model.PropertyId)
+                        @Html.Hidden("AppointmentId", appointment.AppointmentId)
+                        <input type="submit" class="btn btn-red" value="Accept" />
+                    }
+                    using (Html.BeginForm("Decline", "Appointments", FormMethod.Post, new { @class = "form-status-action inline-block" }))
+                    {
+                        @Html.Hidden("PropertyId", Model.PropertyId)
+                        @Html.Hidden("AppointmentId", appointment.AppointmentId)
+                        <input type="submit" class="btn btn-red" value="Decline" />
+                    }
                 }
             </div>
         </div>
@@ -68,7 +105,7 @@
 }
 else
 {
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-warning" role="alert">
         This property has no appointments yet!
     </div>
 }

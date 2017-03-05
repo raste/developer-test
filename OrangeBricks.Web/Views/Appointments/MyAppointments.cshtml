@@ -8,6 +8,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<br />
 
 <p>Here you can see the appointment requests that you have made.</p>
 
@@ -15,15 +16,36 @@
 {
     <p>You have made @Model.Appointments.Count appointment requests ...</p>
 
+    <div class="row">
+        <div class="col-sm-3">
+            <strong>Property Type</strong>
+        </div>
+        <div class="col-sm-3">
+            <strong>Property Street</strong>
+        </div>
+        <div class="col-sm-3">
+            <strong>Appointment Date</strong>
+        </div>
+        <div class="col-sm-3">
+            <strong>Appointment Status</strong>
+        </div>
+    </div>
+
     foreach (var appointment in Model.Appointments)
     {
         <hr />
-        <div>
-            <p><strong>Property Type: </strong> @appointment.PropertyType</p>
-            <p><strong>Property Street: </strong> @appointment.PropertyStreetName</p>
-            <p><strong>Appointment Date: </strong> @appointment.AppointmentDate</p>
-            <p>
-                <strong>Appointment Status: </strong>
+
+        <div class="row">
+            <div class="col-sm-3">
+                @appointment.PropertyType
+            </div>
+            <div class="col-sm-3">
+                @appointment.PropertyStreetName
+            </div>
+            <div class="col-sm-3">
+                @appointment.AppointmentDate
+            </div>
+            <div class="col-sm-3">
                 @switch (appointment.AppointmentStatus)
                 {
                     case AppointmentStatus.Accepted:
@@ -36,13 +58,13 @@
                         @:Pending
                         break;
                 }
-            </p>
+            </div>
         </div>
     }
 }
 else
 {
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-warning" role="alert">
         You have not made any appointment requests yet!
     </div>
 }
